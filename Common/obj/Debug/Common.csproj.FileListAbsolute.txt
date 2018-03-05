@@ -1,0 +1,4 @@
+C:\Users\DELL\Desktop\StudScoreManage\Common\bin\Debug\Common.dll
+C:\Users\DELL\Desktop\StudScoreManage\Common\bin\Debug\Common.pdb
+C:\Users\DELL\Desktop\StudScoreManage\Common\obj\Debug\Common.dll
+C:\Users\DELL\Desktop\StudScoreManage\Common\obj\Debug\Common.pdb

@@ -1,0 +1,965 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap 模板</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+
+    <![endif]-->
+    <style>
+        body {
+            /*background-image: url(images/login_bg.jpg);*/
+        }
+
+        .nav-tabs {
+            padding-top: 50px;
+        }
+
+            .nav-tabs li {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+        .modal-body label {
+            display: block;
+            line-height: 30px;
+        }
+
+        .navbar {
+            margin-bottom: 0;
+        }
+        /*.nav-tabs li:hover {
+            background-color: skyblue;
+        }*/
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+
+                <div class="tabbable " id="tabs-551041">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#panel-studInfo" data-toggle="tab">学生信息</a>
+                                </li>
+                                <li>
+                                    <a href="#panel-class" data-toggle="tab">班级信息</a>
+                                </li>
+                                <li>
+                                    <a href="#panel-course" data-toggle="tab">课程信息</a>
+                                </li>
+                                <li>
+                                    <a href="#panel-score" data-toggle="tab">成绩信息</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="tab-content">
+                                <div>
+                                    <!--学生信息添加模态框-->
+                                    <div class="modal fade" id="addStudDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="myModalLabel">添加学生</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <label>学号:<input type="text" id="txtAddStudNo" value=" " /></label>
+                                                    <label>姓名: <input type="text" id="txtAddName" value=" " /></label>
+                                                    <label>生日: <input type="date" id="dateAddBirthday" /></label>
+                                                    <label>性别: <input type="radio" id="radioAddSex" value="男" name="radioAddSex" />男 <input type="radio" name="radioAddSex" value="女" />女</label>
+                                                    <label>
+                                                        班级: <select class="selectAddClass"></select>
+                                                    </label>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                    <button type="button" class="btn btn-primary btnSubmitAddStud">提交</button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal -->
+                                    </div>
+
+                                    <!--学生信息修改模态框-->
+                                    <div class="modal fade" id="updateStudDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <label>学号:<input type="text" id="txtEditStudNo" value=" " /></label>
+                                                    <label>姓名: <input type="text" id="txtEditName" value=" " /></label>
+                                                    <label>生日: <input type="date" id="dateEditBirthday" /></label>
+                                                    <label class="editRadio">性别: <input type="radio" value="男" name="radioEditSex" />男 <input type="radio" name="radioEditSex" value="女" />女</label>
+                                                    <label>
+                                                        班级: <select class="selectAddClass edit"></select>
+                                                    </label>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                    <button type="button" class="btn btn-primary btnSubmitEditStud">提交</button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal -->
+                                    </div>
+
+                                    <!--班级信息添加模态框-->
+                                    <div class="modal fade" id="addClassDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="myModalLabel">添加班级</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!--, className, classDesc-->
+                                                    <label>班级ID:<input type="text" id="txtAddClassID" value=" " /></label>
+                                                    <label>名称: <input type="text" id="txtAddClassName" value=" " /></label>
+                                                    <label>描述: <input type="text" id="txtAddClassDesc" value=" " /></label>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                    <button type="button" class="btn btn-primary btnSubmitAddClass">提交</button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal -->
+                                    </div>
+
+                                    <!--班级信息修改模态框-->
+                                    <div class="modal fade" id="EditClassDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="myModalLabel">修改班级</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!--, className, classDesc-->
+                                                    <label>班级ID:<input type="text" id="txtEditClassID" value=" " /></label>
+                                                    <label>名称: <input type="text" id="txtEditClassName" value=" " /></label>
+                                                    <label>描述: <input type="text" id="txtEditClassDesc" value=" " /></label>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                    <button type="button" class="btn btn-primary btnSubmitEditClass">提交</button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal -->
+                                    </div>
+
+                                    <!--课程信息添加模态框-->
+                                    <div class="modal fade" id="addCourseDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="myModalLabel">课程</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!--courseID, courseName, courseType, courseCredit, courseDesc-->
+                                                    <label>课程ID:<input type="text" id="txtAddCourseID" value=" " /></label>
+                                                    <label>名称: <input type="text" id="txtAddCourseName" value=" " /></label>
+                                                    <label>课程类型: <input type="text" id="txtAddCourseType" value=" " /></label>
+                                                    <label>学分: <input type="text" id="txtAddCourseCredit" value=" " /></label>
+                                                    <label>描述: <input type="text" id="txtAddCourseDesc" value=" " /></label>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                    <button type="button" class="btn btn-primary btnSubmitAddCourse">提交</button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal -->
+                                    </div>
+
+                                    <!--课程信息修改模态框-->
+                                    <div class="modal fade" id="editCourseDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="myModalLabel">课程</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!--courseID, courseName, courseType, courseCredit, courseDesc-->
+                                                    <label>课程ID:<input type="text" id="txtEditCourseID" value=" " /></label>
+                                                    <label>名称: <input type="text" id="txtEditCourseName" value=" " /></label>
+                                                    <label>课程类型: <input type="text" id="txtEditCourseType" value=" " /></label>
+                                                    <label>学分: <input type="text" id="txtEditCourseCredit" value=" " /></label>
+                                                    <label>描述: <input type="text" id="txtEditCourseDesc" value=" " /></label>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                    <button type="button" class="btn btn-primary btnSubmitEditCourse">提交</button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal -->
+                                    </div>
+
+                                    <!--成绩信息添加模态框-->
+                                    <div class="modal fade" id="addScoreDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="myModalLabel">课程</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!--studNo, courseID, studScore-->
+                                                    <label>课程编号: <input type="text" id="txtAddScoreCourseID" value=" " /></label>
+                                                    <label>学号: <input type="text" id="txtAddScoreStudNo" value="" /></label>
+                                                    <label>分数: <input type="text" id="txtAddStudScore" value=" " /></label>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                    <button type="button" class="btn btn-primary btnSubmitAddScore">提交</button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal -->
+                                    </div>
+
+                                    <!--成绩信息修改模态框-->
+                                    <div class="modal fade" id="editCourseDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title" id="myModalLabel">课程</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!--courseID, courseName, courseType, courseCredit, courseDesc-->
+                                                    <label>课程ID:<input type="text" id="txtEditCourseID" value=" " /></label>
+                                                    <label>名称: <input type="text" id="txtEditCourseName" value=" " /></label>
+                                                    <label>课程类型: <input type="text" id="txtEditCourseType" value=" " /></label>
+                                                    <label>学分: <input type="text" id="txtEditCourseCredit" value=" " /></label>
+                                                    <label>描述: <input type="text" id="txtEditCourseDesc" value=" " /></label>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                    <button type="button" class="btn btn-primary btnSubmitEditCourse">提交</button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal -->
+                                    </div>
+                                </div>
+                                <div class="tab-pane active" id="panel-studInfo">
+                                    <!--学生信息修改按钮组-->
+                                    <nav class="navbar navbar-default" role="navigation">
+                                        <div class="container-fluid">
+                                            <div class="navbar-header">
+                                                <a class="navbar-brand" href="#">学生信息操作</a>
+                                            </div>
+                                            <div>
+                                                <form class="navbar-form navbar-right" role="search">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Search">
+                                                    </div>
+                                                </form>
+                                                <button class="btn btn-danger  btnAddStud navbar-btn" data-toggle="modal" data-target="#addStudDialog"><span class="glyphicon glyphicon-plus"></span>添加学生</button>
+                                                <button class="btn btn-success  navbar-btn" id="btnDeleteStud"><span class="glyphicon glyphicon-trash"></span>删除学生</button>
+                                                <button class="btn btn-info  btnUpdateStud navbar-btn" data-toggle="modal" data-target="#updateStudDialog"><span class="glyphicon glyphicon-edit"></span>修改信息</button>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <p>
+
+                                    </p>
+                                    <div id="studPagination"></div>
+                                </div>
+
+                                <div class="tab-pane" id="panel-class">
+                                    <!--班级信息操作按钮组-->
+                                    <nav class="navbar navbar-default" role="navigation">
+                                        <div class="container-fluid">
+                                            <div class="navbar-header">
+                                                <a class="navbar-brand" href="#">班级信息操作</a>
+                                            </div>
+                                            <div>
+                                                <form class="navbar-form navbar-right" role="search">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Search">
+                                                    </div>
+                                                </form>
+                                                <button class="btn btn-danger  btnAddClass navbar-btn" data-toggle="modal" data-target="#addClassDialog"><span class="glyphicon glyphicon-plus"></span>添加班级</button>
+                                                <button class="btn btn-success  navbar-btn" id="btnDeleteClass"><span class="glyphicon glyphicon-trash"></span>删除班级</button>
+                                                <button class="btn btn-info  btnUpdateClass navbar-btn" data-toggle="modal" data-target="#EditClassDialog"><span class="glyphicon glyphicon-edit"></span>修改信息</button>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <p>
+
+
+                                    </p>
+                                    <div id="classPagination"></div>
+                                </div>
+
+                                <div class="tab-pane" id="panel-course">
+                                    <!--课程按钮组-->
+                                    <nav class="navbar navbar-default" role="navigation">
+                                        <div class="container-fluid">
+                                            <div class="navbar-header">
+                                                <a class="navbar-brand" href="#">课程信息操作</a>
+                                            </div>
+                                            <div>
+                                                <form class="navbar-form navbar-right" role="search">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Search">
+                                                    </div>
+                                                </form>
+                                                <button class="btn btn-danger  btnAddCourse navbar-btn" data-toggle="modal" data-target="#addCourseDialog"><span class="glyphicon glyphicon-plus"></span>添加课程</button>
+                                                <button class="btn btn-success  navbar-btn" id="btnDeleteCourse"><span class="glyphicon glyphicon-trash"></span>删除课程</button>
+                                                <button class="btn btn-info  btnUpdateCourse navbar-btn" data-toggle="modal" data-target="#editCourseDialog"><span class="glyphicon glyphicon-edit"></span>修改信息</button>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <p>
+
+
+                                    </p>
+                                    <div id="coursePagination"></div>
+                                </div>
+                                <div class="tab-pane" id="panel-score">
+                                    <nav class="navbar navbar-default" role="navigation">
+                                        <div class="container-fluid">
+                                            <div class="navbar-header">
+                                                <a class="navbar-brand" href="#">成绩信息操作</a>
+                                            </div>
+                                            <div>
+                                                <form class="navbar-form navbar-right" role="search">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Search">
+                                                    </div>
+                                                </form>
+                                                <button class="btn btn-danger  btnAddScore navbar-btn" data-toggle="modal" data-target="#addScoreDialog"><span class="glyphicon glyphicon-plus"></span>添加学生</button>
+                                                <button class="btn btn-success  navbar-btn" id="btnDeleteScore"><span class="glyphicon glyphicon-trash"></span>删除学生</button>
+                                                <button class="btn btn-info  btnUpdateStud navbar-btn" data-toggle="modal" data-target="#updateScoreDialog"><span class="glyphicon glyphicon-edit"></span>修改信息</button>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                    <p>
+
+
+                                    </p>
+                                    <div id="scorePagination"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/template" id="studList">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>操作</th>
+                    <th>学号</th>
+                    <th>生日</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>班级ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                function data_string(str) {
+                var d = eval('new ' + str.substr(1, str.length - 2));
+                var ar_date = [d.getFullYear(), d.getMonth() + 1, d.getDate()];
+                for (var i = 0; i < ar_date.length; i ++) ar_date[i] = dFormat(ar_date[i]);
+                return ar_date.join('-');
+
+                function dFormat(i) { return i < 10 ? "0" + i.toString() : i; }
+                }
+                %>
+                <% for(var i =0; i < studList.length; i++) {%>
+                <tr class="success">
+                    <td><input type="radio" name="sutdFlag" value="<%= studList[i]['studNo'] %>" /></td>
+                    <td><%= studList[i]["studNo"] %></td>
+                    <td><%= data_string( studList[i]["studBirthDay"].toString() )%></td>
+                    <td><%= studList[i]["studName"] %></td>
+                    <td><%= studList[i]["studSex"] %></td>
+                    <td><%= studList[i]["classID"]%></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </script>
+    <script type="text/template" id="classList">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>操作</th>
+                    <th>班级ID</th>
+                    <th>班级</th>
+                    <th>描述</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i =0; i < studList.length; i++) {%>
+                <tr class="success">
+                    <td><input type="radio" name="classFlag" value="<%= studList[i]['classID'] %>" /></td>
+                    <td><%= studList[i]["classID"] %></td>
+                    <td><%= studList[i]["className"] %></td>
+                    <td><%= studList[i]["classDesc"] %></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </script>
+    <script type="text/template" id="selectClass">
+        <% for(var i=0; i < classList.length; i++) {%>
+            <option value="<%= classList[i]['classID'] %>" ><%=classList[i]["className"]%></option>
+            <%}%>
+    </script>
+    <script type="text/template" id="courseList">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>操作</th>
+                    <th>学分</th>
+                    <th>描述</th>
+                    <th>ID</th>
+                    <th>科目</th>
+                    <th>类型</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i =0; i < studList.length; i++) {%>
+                <tr class="success">
+                    <td><input type="radio" name="courseFlag" value="<%= studList[i]['courseID'] %>" /></td>
+                    <td><%= studList[i]["courseCredit"] %></td>
+                    <td><%= studList[i]["courseDesc"] %></td>
+                    <td><%= studList[i]["courseID"] %></td>
+                    <td><%= studList[i]["courseName"] %></td>
+                    <td><%= studList[i]["courseType"] %></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </script>
+    <script type="text/template" id="scoreList">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>操作</th>
+                    <th>科目ID</th>
+                    <th>学号</th>
+                    <th>分数</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i =0; i < studList.length; i++) {%>
+                <tr class="success">
+                    <td><!--<input type="radio" name="courseFlag" value="<%= studList[i]['courseID'] %>" />--></td>
+                    <td><%= studList[i]["courseID"] %></td>
+                    <td><%= studList[i]["studNo"] %></td>
+                    <td><%= studList[i]["studScore"] %></td>
+                </tr>
+                <% } %>     
+            </tbody>
+        </table>
+    </script>
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/template.js"></script>
+    <script src="js/datapattern.js"></script>
+    <script>
+        $(function () {
+            checkLoginState();
+            loadSutdInfo();
+            loadClassInfo();
+            loadCourseInfo();
+            loadScoreInfo();
+            ShowAddStudDialog();
+            bindSubmitAddStudClickEvent();
+            bindDeleteStudClickEvent();
+            showUpdateStudDiglog();
+            bindSubmitUpdateStudClickEvent();
+            bindSubmitAddClassClickEvent();
+            bindDeleteClassClickEvent();
+            showEditDiglog();
+            bindSubmitEditClassClickEvent();
+            bindSubmitAddCourseClickEvent();
+            bindDeleteCourseClickEvent();
+            showEditCourseDiglog();
+            bindSubmitEditCourseClickEvent();
+            bindSubmitAddScoreClickEvent();
+
+        })
+        function checkLoginState() {
+            $.ajax({
+                url: "data/checkLoginState.ashx",
+                type: "post",
+                success: function (data) {
+                    if (data != "ok") {
+                        window.location.href = "login.html";
+                        return;
+                    }
+                }
+            })
+        }
+        function bindSubmitAddScoreClickEvent() {
+            $(".btnSubmitAddScore").click(function () {
+                //alert("的路费就傻掉了的");
+                var studNo, courseID, studScore;
+                studNo = $("#txtAddScoreStudNo").val();
+                courseID = $("#txtAddScoreCourseID").val();
+                studScore = $("#txtAddStudScore").val();
+                $.ajax({
+                    url: "data/addStudScoreByObj.ashx",
+                    data: {studNo:studNo,courseID:courseID,studScore:studScore},
+                    type: "post",
+                    success: function (data) {
+                        if (data == "ok") {
+                            $("#addScoreDialog").modal("hide");
+                            loadScoreInfo();
+                            return;
+                        }
+                    }
+                })
+            });
+        }
+        function bindSubmitEditCourseClickEvent() {
+            $(".btnSubmitEditCourse").click(function () {
+                //alert("的理科生的叫法是");
+                var courseID = $("input[name='courseFlag']:checked").val();
+                if (courseID == "") {
+                    return;
+                }
+                var courseID, courseName, courseType, courseCredit, courseDesc;
+                courseID = $("#txtEditCourseID").val();
+                courseName = $("#txtEditCourseName").val();
+                courseDesc = $("#txtEditCourseDesc").val();
+                courseType = $("#txtEditCourseType").val();
+                courseCredit = $("#txtEditCourseCredit").val();
+                $.ajax({
+                    url: "data/updateCourseByObj.ashx",
+                    type: "post",
+                    data: { courseID: courseID, courseName: courseName, courseDesc: courseDesc, courseType: courseType, courseCredit: courseCredit },
+                    success: function (data) {
+                        if (data == "ok") {
+                            $("#editCourseDialog").modal("hide");
+                            loadCourseInfo();
+                            return;
+                        }
+                    }
+                })
+            })
+        }
+        function showEditCourseDiglog() {
+            $(".btnUpdateCourse").click(function () {
+                //alert("大家发士大夫");
+                var courseID = $("input[name='courseFlag']:checked").val();
+                if (courseID == "") {
+                    return;
+                }
+                var txtID, txtName, txtDesc;
+                txtID = $("#txtEditCourseID");
+                txtName = $("#txtEditCourseName");
+                txtDesc = $("#txtEditCourseDesc");
+                txtType = $("#txtEditCourseType");
+                txtCredit = $("#txtEditCourseCredit");
+                $.ajax({
+                    url: "data/getCourseInfoByID.ashx",
+                    type: "post",
+                    dataType: "json",
+                    data: { courseID: courseID },
+                    success: function (data) {
+                        //courseID, courseName, courseType, courseCredit, courseDesc
+                        txtID.val(data["courseID"]);
+                        txtName.val(data["courseName"]);
+                        txtDesc.val(data["courseDesc"]);
+                        txtType.val(data["courseType"]);
+                        txtCredit.val(data["courseCredit"]);
+                    }
+                })
+            })
+        }
+        function bindDeleteCourseClickEvent() {
+            $("#btnDeleteCourse").click(function () {
+                //alert("带上飞机撒地方");
+                var courseID = $("input[name='courseFlag']:checked").val();
+                if (courseID == "") {
+                    return;
+                }
+                //alert(courseID);
+                if (confirm("确定要删除吗?")) {
+                    $.ajax({
+                        url: "data/deleteCourseByID.ashx",
+                        type: "post",
+                        data: { courseID: courseID },
+                        success: function (data) {
+                            if (data == "ok") {
+                                loadCourseInfo();
+                                return;
+                            }
+                        }
+                    })
+                }
+            })
+        }
+        function bindSubmitAddCourseClickEvent() {
+            $(".btnSubmitAddCourse").click(function () {
+                //alert("活动十分骄傲了几分");
+                var courseID, courseName, courseType, courseCredit, courseDesc;
+                courseID = $("#txtAddCourseID").val();
+                courseName = $("#txtAddCourseName").val();
+                courseDesc = $("#txtAddCourseDesc").val();
+                courseCredit = $("#txtAddCourseCredit").val();
+                courseType = $("#txtAddCourseType").val();
+                alert(courseID);
+                $.ajax({
+                    url: "data/addCourseByObj.ashx",
+                    data: { courseID: courseID, courseName: courseName, courseDesc: courseDesc, courseCredit: courseCredit, courseType: courseType },
+                    type: "post",
+                    success: function (data) {
+                        if (data == "ok") {
+                            $("#addCourseDialog").modal("hide");
+                            loadCourseInfo();
+                            return;
+                        }
+                    }
+                })
+            })
+        }
+        function bindSubmitEditClassClickEvent() {
+            $(".btnSubmitEditClass").click(function () {
+                //alert("哈哈哈哈哈");
+                var classID = $("input[name='classFlag']:checked").val();
+                if (classID == "") {
+                    return;
+                }
+                var txtID, txtName, txtDesc;
+                txtID = $("#txtEditClassID").val();
+                txtName = $("#txtEditClassName").val();
+                txtDesc = $("#txtEditClassDesc").val();
+                $.ajax({
+                    url: "data/UpdateClassByObj.ashx",
+                    type: "post",
+                    data: { classID: classID, className: txtName, classDesc: txtDesc },
+                    success: function (data) {
+                        if (data == "ok") {
+                            $("#EditClassDialog").modal("hide");
+                            loadClassInfo();
+                            return;
+                        }
+                    }
+                })
+            })
+        }
+        function showEditDiglog() {
+            $(".btnUpdateClass").click(function () {
+                //alert("呵呵呵呵");
+                var classID = $("input[name='classFlag']:checked").val();
+                if (classID == "") {
+                    return;
+                }
+                var txtID, txtName, txtDesc;
+                txtID = $("#txtEditClassID");
+                txtName = $("#txtEditClassName");
+                txtDesc = $("#txtEditClassDesc");
+                $.ajax({
+                    url: "data/getClassInfoByID.ashx",
+                    type: "post",
+                    dataType: "json",
+                    data: { classID: classID },
+                    success: function (data) {
+                        txtID.val(data["classID"]);
+                        txtName.val(data["className"]);
+                        txtDesc.val(data["classDesc"]);
+                    }
+                })
+            })
+        }
+        function bindDeleteClassClickEvent() {
+            $("#btnDeleteClass").click(function () {
+                var classID = $("input[name='classFlag']:checked").val();
+                if (classID == "") {
+                    return;
+                }
+                if (confirm("确定要删除吗?")) {
+                    $.ajax({
+                        url: "data/deleteClassByID.ashx",
+                        type: "post",
+                        data: { classID: classID },
+                        success: function (data) {
+                            if (data == "ok") {
+                                loadClassInfo();
+                                return;
+                            }
+                        }
+                    })
+                }
+            })
+        }
+
+        function bindSubmitAddClassClickEvent() {
+            $(".btnSubmitAddClass").click(function () {
+                //alert("哈哈哈哈");
+                var classID, className, classDesc;
+                classID = $("#txtAddClassID").val();
+                className = $("#txtAddClassName").val();
+                classDesc = $("#txtAddClassDesc").val();
+                $.ajax({
+                    url: "data/addClassInfoByObj.ashx",
+                    type: "post",
+                    data: { classID: classID, className: className, classDesc: classDesc },
+                    success: function (data) {
+                        //alert(data);
+                        if (data == "ok") {
+                            $("#addClassDialog").modal("hide");
+                            loadClassInfo();
+                            return;
+                        }
+                    }
+                })
+            })
+        }
+        function bindSubmitUpdateStudClickEvent() {
+            $(".btnSubmitEditStud").click(function () {
+                //alert("哈哈哈哈哈");
+                var birthday, sex, classID, name, studNo;
+                birthday = $("#dateEditBirthday").val();
+                sex = $(".editRadio input[type='radio']:checked").val();
+                classID = $(".selectAddClass.edit option:selected").val();
+                name = $("#txtEditName").val();
+                studNo = $("#txtEditStudNo").val();
+                $.ajax({
+                    url: "data/editStudByStudObj.ashx",
+                    type: "post",
+                    data: { studNo: studNo, studName: name, studSex: sex, studBirthDay: birthday, classID: classID },
+                    success: function (data) {
+                        //alert(data);
+                        if (data == "ok") {
+                            $("#updateStudDialog").modal("hide");
+                            loadSutdInfo();
+                            //console.log(data);
+                        }
+                    }
+                })
+            })
+        }
+        function showUpdateStudDiglog() {
+            $(".btnUpdateStud").click(function () {
+                var studNo = $("input[name='sutdFlag']:checked").val();
+                if (studNo == "") {
+                    return;
+                }
+                loadClassOptions();
+                //alert(studNo);
+                $.ajax({
+                    url: "data/getStudInfoByID.ashx",
+                    type: "post",
+                    data: { studNo: studNo },
+                    dataType: "json",
+                    success: function (data) {
+                        //studNo, studName, studSex, studBirthDay, classID
+                        //<label>学号:<input type="text" id="txtEditStudNo" value=" " /></label>
+                        //                            <label>姓名: <input type="text" id="txtEditName" value=" " /></label>
+                        //console.log(data);
+                        $("#txtEditStudNo").val(data["studNo"]);
+                        $("#txtEditName").val(data["studName"]);
+                        console.log($(".selectAddClass.edit option[value=" + data["classID"] + "]").get(0));
+                        $(".selectAddClass.edit option[value=" + data["classID"] + "]").get(0).selected = true;
+                        $(".editRadio input[value=" + data["studSex"] + "]").prop("checked", "true");
+                        console.log($("input[value=" + data["studSex"] + "]").get(0));
+                    }
+                })
+            })
+        }
+        function bindDeleteStudClickEvent() {
+            $("#btnDeleteStud").click(function () {
+                var studNo = $("input[name='sutdFlag']:checked").val();
+                if (studNo == "") {
+                    return;
+                }
+                if (confirm("确定要删除吗?")) {
+                    $.ajax({
+                        url: "data/deleteStudByID.ashx",
+                        type: "post",
+                        data: { studNo: studNo },
+                        success: function (data) {
+                            //alert(data);
+                            if (data == "ok") {
+                                //alert(data);
+                                loadSutdInfo();
+                                return;
+                            }
+                            //alert(data);
+                        }
+                    })
+                }
+            })
+        }
+        function bindSubmitAddStudClickEvent() {
+            $(".btnSubmitAddStud").on("click", function () {
+                var birthday, sex, classID, name, studNo;
+                birthday = $("#dateAddBirthday").val();
+                sex = $("input[type='radio']:checked").val();
+                classID = $(".selectAddClass option:selected").val();
+                name = $("#txtAddName").val();
+                studNo = $("#txtAddStudNo").val();
+                $.ajax({
+                    url: "data/addStudByStudObj.ashx",
+                    type: "post",
+                    data: { studNo: studNo, studName: name, studSex: sex, studBirthDay: birthday, classID: classID },
+                    success: function (data) {
+                        if (data == "ok") {
+                            $("#addStudDialog").modal("hide");
+                            loadSutdInfo();
+                            console.log(data);
+                        }
+                    }
+                })
+            })
+        }
+        function ShowAddStudDialog() {
+            $(".btnAddStud").on("click", function () {
+                //alert("哈哈哈哈");
+                //console.log("多说几句阿斯蒂芬");
+                loadClassOptions();
+            })
+        }
+        function loadClassOptions() {
+            $.ajax({
+                url: "data/getClassInfoList.ashx",
+                dataType: "json",
+                success: function (data) {
+                    var html = baidu.template("selectClass", { classList: data });
+                    $(".selectAddClass").html(html);
+                    console.log(data);
+                }
+            })
+        }
+        function loadSutdInfo() {
+            $.ajax({
+                url: "data/getStudInfoList.ashx",
+                dataType: "json",
+                data: { pageIndex: 1 },
+                type: "get",
+                success: function (data) {
+                    var html = baidu.template("studList", data);
+                    $("#studPagination").html(data.pagination);
+                    $("#panel-studInfo p").html(html);
+                    bindStudPagingClickEvent();
+                }
+            })
+        }
+        function bindStudPagingClickEvent() {
+            $("#studPagination li").click(function () {
+                var pageIndex = this.firstChild.innerText;
+                //console.log(pageIndex);
+                $.ajax({
+                    url: "data/getStudInfoList.ashx",
+                    dataType: "json",
+                    data: { pageIndex: pageIndex },
+                    type: "get",
+                    success: function (data) {
+                        var html = baidu.template("studList", data);
+                        $("#studPagination").html(data.pagination);
+                        $("#panel-studInfo p").html(html);
+                        //console.log(data);
+                        bindStudPagingClickEvent();
+                    }
+                })
+            })
+        }
+        function loadClassInfo() {
+            $.ajax({
+                url: "data/getClassInfoList.ashx",
+                dataType: "json",
+                data: { pageIndex: 1 },
+                success: function (data) {
+                    //console.log(data);
+                    var html = baidu.template("classList", {studList:data});
+                    $("#panel-class p").html(html);
+
+                }
+            })
+        }
+        function loadCourseInfo() {
+            $.ajax({
+                url: "data/getCourseInfoList.ashx",
+                dataType: "json",
+                data: { pageIndex: 1 },
+                success: function (data) {
+                    var html = baidu.template("courseList", data);
+                    $("#coursePagination").html(data.pagination);
+                    $("#panel-course p").html(html);
+                    bindCoursePagingClickEvent();
+                }
+            })
+        }
+        function bindCoursePagingClickEvent() {
+            $("#coursePagination li").click(function () {
+                var pageIndex = this.firstChild.innerText;
+                //console.log(pageIndex);
+                $.ajax({
+                    url: "data/getCourseInfoList.ashx",
+                    dataType: "json",
+                    data: { pageIndex: pageIndex },
+                    type: "get",
+                    success: function (data) {
+                        var html = baidu.template("courseList", data);
+                        //console.log(data.pagination);
+                        $("#coursePagination").html(data.pagination);
+                        $("#panel-course p").html(html);
+                        bindCoursePagingClickEvent();
+                    }
+                })
+            })
+        }
+        function loadScoreInfo() {
+            $.ajax({
+                url: "data/getScoreInfoList.ashx",
+                dataType: "json",
+                data:{pageIndex:1},
+                success: function (data) {
+                    var html = baidu.template("scoreList", data);
+                    $("#scorePagination").html(data.pagination);
+                    $("#panel-score p").html(html);
+                    bindScorePagingClickEvent();
+                }
+            })
+        }
+        function bindScorePagingClickEvent() {
+            $("#scorePagination li").click(function () {
+                var pageIndex = this.firstChild.innerText;
+                //console.log(pageIndex);
+                $.ajax({
+                    url: "data/getScoreInfoList.ashx",
+                    dataType: "json",
+                    data: { pageIndex: pageIndex },
+                    type: "get",
+                    success: function (data) {
+                        var html = baidu.template("scoreList", data);
+                        //console.log(data.pagination);
+                        $("#scorePagination").html(data.pagination);
+                        $("#panel-score p").html(html);
+                        bindScorePagingClickEvent();
+                    }
+                })
+            })
+        }
+    </script>
+
+</body>
+</html>

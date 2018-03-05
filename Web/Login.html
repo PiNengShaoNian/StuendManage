@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap 模板</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    
+    <![endif]-->
+    <style>
+        body {
+            background-image: url(images/login_bg.jpg);
+        }
+        .logo {
+            color: #f5f5f5;
+            font: 300 50px/60px "microsoft yahei";
+            text-align: center;
+            padding: 30px ;
+        }
+        .right-icon,.left-icon {
+            display: block;
+            color: white;
+            padding: 15px 15px;
+            /*font: 300 20px/20px "microsoft yahei"*/
+        }
+        .logo_icon {
+            margin: 80px 0px;
+        }
+        .left_icon_box .left-icon:nth-child(1) {
+            transform: rotate(50deg);
+        }
+        .left_icon_box .left-icon:nth-child(2) {
+            transform: rotate(20deg);
+        }
+        .left_icon_box .left-icon:nth-child(3) {
+             transform: rotate(-30deg);
+         }
+
+        .right_icon_box .right-icon:nth-child(1) {
+            transform: rotate(-230deg);
+        }
+        .right_icon_box .right-icon:nth-child(2) {
+            transform: rotate(-190deg);
+            /*transform: translate(100px, 100px);*/
+        }
+        .right_icon_box .right-icon:nth-child(3) {
+            transform: rotate(-150deg);
+            /*transform: translate(100px, 100px);*/
+        }
+        .login label {
+            display: block;
+            padding: 0 20px 10px 0;
+        }
+        .login input[type="text"] {
+            border: none;
+            padding: 10px 30px;
+            width: 250px;
+            height: 30px;
+            background-color: rgba(181, 208, 237, 0.7);
+            border-radius: 14px;
+
+        }
+        label {
+            position: relative;
+        }
+        label span {
+            position: absolute;
+            left: 22px;
+            top: 8px;
+            color: #ffffff;
+        }
+        .btn_login {
+            border: none;
+            border-radius: 20px;
+            width: 150px;
+            height: 30px;
+            background-color: rgba(102, 211, 84, 0.9);
+            margin-left: 60px;
+        }
+        #viladate {
+            width: 160px;
+        }
+        .verify_img {
+            width: 70px;
+            height: 28px;
+            margin-left: 10px;
+        }
+        .login {
+            margin-left: 427px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="row col-lg-4 logo_icon">
+                <div class="col-lg-3 left_icon_box">
+                    <span class="glyphicon glyphicon-music left-icon"></span>
+                    <span class="glyphicon glyphicon-user left-icon"></span>
+                    <span class="glyphicon glyphicon-list-alt left-icon"></span>
+                </div>
+                <div class="col-lg-6 logo"><span >LOGO</span></div>
+                <div class="col-lg-3 right_icon_box">
+                    <span class="glyphicon glyphicon-time right-icon"></span>
+                    <span class="glyphicon glyphicon-list-alt right-icon"></span>
+                    <span class="glyphicon glyphicon-thumbs-up right-icon"></span>
+                </div>
+            </div>
+        <div class="col-lg-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-5 login">
+            <label for="userName"><span class="glyphicon glyphicon-user name"></span><input type="text" id="userName">
+            </label>
+            <label for="password"><span class="	glyphicon glyphicon-lock pwd"></span><input type="text" id="password"></label>
+            <label for="viladate"><span class="glyphicon glyphicon-check check"></span><input type="text" id="viladate">
+                <img src="data/validateCodeImgHandler.ashx?" class="verify_img" alt="" id="VCode">
+            </label>
+            <button class="btn_login">登陆</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+<script src="js/jquery-1.11.1.min.js"></script>
+<!-- 包括所有已编译的插件 -->
+<script src="js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            updateVcode();
+            bindLoginClickEvent();
+        })
+        function updateVcode() {
+            $("#VCode").click(function () {
+                var oldSrc = "data/validateCodeImgHandler.ashx?";
+                oldSrc += new Date().toString();
+                $(this).attr("src", oldSrc);
+            });
+        }
+        function bindLoginClickEvent() {
+            $(".btn_login").click(function () {
+                if (checkIsEmpty()) {
+                    alert("会输入吗!!!");
+                    return;
+                }
+                var txtName, txtPwd, txtVCode;
+                txtName = $("#userName").val();
+                txtPwd = $("#password").val();
+                txtVCode = $("#viladate").val();
+                console.log(txtName, txtPwd, txtVCode);
+                //alert(txtName);
+                $.ajax({
+                    url: "data/login.ashx",
+                    type: "post",
+                    data: { txtName: txtName, txtPwd: txtPwd, txtCode: txtVCode },
+                    success: function (data) {
+                        if (data == "ok") {
+                            window.location.href = 'index.html';
+                            return;
+                        }
+                        alert(data);
+                    }
+                })
+            })
+        }
+        function checkIsEmpty() {
+            var txtName, txtPwd, txtVCode;
+            txtName = $("#userName").val();
+            txtPwd = $("#password").val();
+            txtVCode = $("#viladate").val();
+            console.log(txtName, txtPwd, txtVCode);
+            if (txtName == "" || txtPwd == "" || txtVCode == "") {
+                return true;
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>
